@@ -60,7 +60,7 @@ export class DatabaseService {
   }
 
   updateLesson(course: string, id: number, changes: Partial<Lesson>) {
-    const url = `${environment.apiUrl}${course}/${id}`;
+    const url = `${environment.apiUrl}/${course}/${id}`;
     return this.httpClient.put(url, changes);
   }
 
