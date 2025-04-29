@@ -1,0 +1,343 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&family=Inter:wght@400;500;600&display=swap");
+
+// Theme colors - Fresh mint-teal palette
+$color-primary: #19747e; // Deep teal
+$color-primary-dark: #14595f; // Darker teal
+$color-primary-dark2: #104145; // Light teal
+$color-accent: #40a2a6; // Medium teal
+$color-accent-light: #d1e8e2; // Soft mint
+$color-accent-warm: #a9d6e5; // Light sky blue
+$color-text-dark: #2c5d63; // Deep sea green
+$color-white: #ffffff;
+$color-muted: #89a7a7; // Muted teal
+$color-light-bg: #e2e2e2; // Light gray
+$color-completed-bg: rgba($color-primary, 0.03); // Much more subtle teal tint
+$color-completed-text: $color-text-dark; // Keep the same text color as uncompleted
+$color-checkbox: $color-accent;
+
+// Typography
+$font-heading: "Outfit", sans-serif;
+$font-body: "Inter", sans-serif;
+
+// Gradients
+$gradient-bg: linear-gradient(
+  135deg,
+  $color-primary 0%,
+  $color-primary-dark 100%
+);
+$gradient-button: linear-gradient(145deg, $color-white, $color-light-bg);
+$gradient-button-hover: linear-gradient(
+  145deg,
+  $color-white,
+  $color-accent-light
+);
+$gradient-accent: linear-gradient(to bottom, $color-accent, $color-primary);
+$gradient-accent-hover: linear-gradient(
+  to bottom,
+  $color-accent,
+  $color-accent-warm
+);
+
+// Shadows with reduced intensity
+$shadow-button: 5px 5px 15px rgba(25, 116, 126, 0.08),
+  -5px -5px 15px rgba(255, 255, 255, 0.08);
+$shadow-button-hover: 6px 6px 20px rgba(25, 116, 126, 0.12),
+  -6px -6px 20px rgba(255, 255, 255, 0.08);
+$shadow-button-active: 3px 3px 10px rgba(25, 116, 126, 0.08),
+  -3px -3px 10px rgba(255, 255, 255, 0.08);
+$shadow-inset: inset 2px 2px 5px rgba(25, 116, 126, 0.05),
+  inset -2px -2px 5px rgba(255, 255, 255, 0.05);
+
+:host {
+  display: block;
+  min-height: 100vh;
+  padding: 0 16px 16px;
+  background: $gradient-bg;
+  font-family: $font-body;
+}
+
+.lessons-grid {
+  display: grid;
+  column-gap: 18px;
+  row-gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-auto-rows: 1fr;
+  align-items: stretch;
+  width: 100%;
+  margin: 0 auto;
+}
+
+button {
+  // Base styles
+  width: 100%;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 12px;
+  background: $gradient-button;
+  box-shadow: $shadow-button;
+
+  // Typography
+  font-family: $font-body;
+  font-size: 1rem;
+  font-weight: 500;
+  color: $color-text-dark;
+  text-align: left;
+  letter-spacing: 0.2px;
+
+  // Transition for smooth hover effects
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  // Layout - update to accommodate checkbox at start
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+  overflow: hidden;
+
+  // Remove the different styling for completed lessons
+  &.completed {
+    // Remove the background color difference
+    // Only keep the accent border if you want
+    &::before {
+      opacity: 1;
+      background: $gradient-accent;
+    }
+  }
+
+  .completed {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border: 2px solid $color-checkbox;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    color: $color-checkbox;
+    margin-right: 8px;
+    flex-shrink: 0;
+  }
+
+  // Update hover effects
+  &:hover {
+    transform: translateY(-2px);
+    background: $gradient-button-hover;
+    box-shadow: $shadow-button-hover;
+    color: $color-primary;
+
+    // Remove the completed background difference on hover
+    &.completed {
+      background: $gradient-button-hover; // Same as non-completed hover
+    }
+
+    .completed {
+      background: rgba($color-checkbox, 0.1);
+    }
+  }
+
+  // Active state
+  &:active {
+    transform: translateY(1px);
+    box-shadow: $shadow-button-active;
+  }
+
+  // Add these to ensure full height
+  height: 100%;
+  min-height: 48px; // This ensures a minimum height
+}
+
+// Title styling
+p:first-child {
+  font-family: $font-heading;
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  font-weight: 300;
+  text-align: center;
+  color: $color-accent-light;
+  letter-spacing: 1px;
+  opacity: 0.95;
+  text-transform: uppercase;
+
+  // Add subtle text shadow for depth
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+// Loading and error states
+p {
+  font-family: $font-body;
+  padding: 12px;
+  border-radius: 12px;
+  background: rgba($color-white, 0.05);
+  backdrop-filter: blur(8px);
+  color: $color-accent-light;
+  text-align: center;
+  margin: 6px 0;
+  box-shadow: $shadow-inset;
+
+  &[error] {
+    background: rgba($color-accent, 0.1);
+    color: $color-accent-light;
+    border-left: 3px solid $color-accent-warm;
+  }
+}
+
+// Time container styling
+.time-container {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 16px;
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.time-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: rgba($color-white, 0.05);
+  backdrop-filter: blur(8px);
+  border-radius: 12px;
+  padding: 8px 16px;
+  box-shadow: $shadow-inset;
+  min-width: 180px;
+
+  .time-label {
+    font-family: $font-body;
+    font-size: 0.9rem;
+    color: $color-accent-light;
+    opacity: 0.8;
+    margin-right: 8px;
+    white-space: nowrap;
+  }
+
+  .time-value {
+    font-family: $font-heading;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: $color-white;
+    white-space: nowrap;
+  }
+}
+
+// Progress container - narrower than header
+.progress-container {
+  width: 50%; // 20% narrower than header's 70%
+  margin: 0 auto 24px;
+  text-align: center;
+  position: relative;
+}
+
+progress {
+  width: 100%;
+  height: 32px;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 16px;
+  border: none;
+  background: rgba($color-accent-light, 0.05);
+  box-shadow: $shadow-inset;
+  position: relative;
+
+  // Remove default styling and set background to match buttons
+  &::-webkit-progress-bar {
+    background: $gradient-button;
+    border-radius: 12px;
+  }
+
+  &::-webkit-progress-value {
+    background: $gradient-accent;
+    border-radius: 12px;
+    transition: width 0.3s ease;
+  }
+
+  &::-moz-progress-bar {
+    background: $gradient-accent;
+    border-radius: 12px;
+    transition: width 0.3s ease;
+  }
+}
+
+// Progress text styling - positioned on the progress bar
+.progress-text {
+  position: absolute;
+  top: 38%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: $font-heading;
+  font-weight: 600;
+  color: $color-primary-dark2; // Light sky blue-green color
+  font-size: 1.3rem; // Bigger font size
+  pointer-events: none;
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.3); // Subtle shadow
+  z-index: 1;
+  line-height: 1; // Ensure proper vertical centering
+  padding: 0; // Remove any padding that might affect centering
+}
+
+.lesson-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 20px;
+  border-radius: 12px;
+  background: $gradient-button;
+  box-shadow: $shadow-button;
+  transition: all 0.3s ease;
+  height: 100%;
+  box-sizing: border-box; // Ensure padding is included in width calculation
+
+  &.completed {
+    .lesson-link {
+      // ✅ Lighter green shade instead of strikethrough
+      color: lighten($color-text-dark, 20%);
+      opacity: 0.75;
+    }
+
+    .checkbox {
+      background-color: rgba($color-accent, 0.1);
+    }
+  }
+
+  &:hover {
+    background: $gradient-button-hover;
+    box-shadow: $shadow-button-hover;
+  }
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: 2px solid $color-checkbox;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  color: $color-checkbox;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background-color 0.2s ease;
+}
+
+.lesson-details {
+  flex: 1;
+}
+
+.lesson-link {
+  font-family: $font-body;
+  font-size: 1rem;
+  font-weight: 500;
+  color: $color-text-dark;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &.no-link {
+    cursor: default;
+  }
+}

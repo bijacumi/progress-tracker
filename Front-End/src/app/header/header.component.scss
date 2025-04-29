@@ -1,0 +1,188 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&family=Inter:wght@400;500;600&display=swap");
+
+// Theme colors - Fresh mint-teal palette
+$color-primary: #19747e; // Deep teal
+$color-primary-dark: #14595f; // Darker teal
+$color-primary-dark2: #104145; // Light teal
+$color-accent: #40a2a6; // Medium teal
+$color-accent-light: #d1e8e2; // Soft mint
+$color-accent-warm: #a9d6e5; // Light sky blue
+$color-text-dark: #2c5d63; // Deep sea green
+$color-white: #ffffff;
+$color-muted: #89a7a7; // Muted teal
+$color-light-bg: #e2e2e2; // Light gray
+$color-completed-bg: rgba($color-primary, 0.03); // Much more subtle teal tint
+$color-completed-text: $color-text-dark; // Keep the same text color as uncompleted
+$color-checkbox: $color-accent;
+
+// Typography
+$font-heading: "Outfit", sans-serif;
+$font-body: "Inter", sans-serif;
+
+// Gradients
+$gradient-bg: linear-gradient(
+  135deg,
+  $color-primary 0%,
+  $color-primary-dark 100%
+);
+$gradient-button: linear-gradient(145deg, $color-white, $color-light-bg);
+$gradient-button-hover: linear-gradient(
+  145deg,
+  $color-white,
+  $color-accent-light
+);
+$gradient-accent: linear-gradient(to bottom, $color-accent, $color-primary);
+$gradient-accent-hover: linear-gradient(
+  to bottom,
+  $color-accent,
+  $color-accent-warm
+);
+
+// Shadows with reduced intensity
+$shadow-button: 5px 5px 15px rgba(25, 116, 126, 0.08),
+  -5px -5px 15px rgba(255, 255, 255, 0.08);
+$shadow-button-hover: 6px 6px 20px rgba(25, 116, 126, 0.12),
+  -6px -6px 20px rgba(255, 255, 255, 0.08);
+$shadow-button-active: 3px 3px 10px rgba(25, 116, 126, 0.08),
+  -3px -3px 10px rgba(255, 255, 255, 0.08);
+$shadow-inset: inset 2px 2px 5px rgba(25, 116, 126, 0.05),
+  inset -2px -2px 5px rgba(255, 255, 255, 0.05);
+
+:host {
+  display: block;
+  padding: 24px 16px 0;
+  background: $gradient-bg;
+  font-family: $font-body;
+  border-bottom: 1px solid rgba($color-accent-light, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+// Title styling
+h1 {
+  font-family: $font-heading;
+  font-size: 2.5rem;
+  margin-bottom: 24px;
+  font-weight: 300;
+  text-align: center;
+  color: $color-accent-light;
+  letter-spacing: 1px;
+  opacity: 0.95;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+// Time container styling
+.time-container {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 16px;
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.time-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: rgba($color-white, 0.05);
+  backdrop-filter: blur(8px);
+  border-radius: 12px;
+  padding: 8px 16px;
+  box-shadow: $shadow-inset;
+  min-width: 180px;
+
+  .time-label {
+    font-family: $font-body;
+    font-size: 0.9rem;
+    color: $color-accent-light;
+    opacity: 0.8;
+    margin-right: 8px;
+    white-space: nowrap;
+  }
+
+  .time-value {
+    font-family: $font-heading;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: $color-white;
+    white-space: nowrap;
+  }
+}
+
+// Progress container
+.progress-container {
+  width: 70%;
+  margin: 0 auto 24px;
+  text-align: center;
+  position: relative;
+}
+
+// Progress bar styling
+progress {
+  width: 100%;
+  height: 32px;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 16px;
+  border: none;
+  background: rgba($color-accent-light, 0.05);
+  box-shadow: $shadow-inset;
+  position: relative;
+
+  // Remove default styling and set background to match buttons
+  &::-webkit-progress-bar {
+    background: $gradient-button;
+    border-radius: 12px;
+  }
+
+  &::-webkit-progress-value {
+    background: $gradient-accent;
+    border-radius: 12px;
+    transition: width 0.3s ease;
+  }
+
+  &::-moz-progress-bar {
+    background: $gradient-accent;
+    border-radius: 12px;
+    transition: width 0.3s ease;
+  }
+}
+
+// Progress text styling - positioned on the progress bar
+.progress-text {
+  position: absolute;
+  top: 38%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: $font-heading;
+  font-weight: 600;
+  color: $color-primary-dark2; // Light sky blue-green color
+  font-size: 1.3rem; // Bigger font size
+  pointer-events: none;
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.3); // Subtle shadow
+  z-index: 1;
+  line-height: 1; // Ensure proper vertical centering
+  padding: 0; // Remove any padding that might affect centering
+}
+
+// Progress text styling
+p {
+  font-family: $font-body;
+  padding: 12px;
+  border-radius: 12px;
+  background: rgba($color-white, 0.05);
+  backdrop-filter: blur(8px);
+  color: $color-accent-light;
+  text-align: center;
+  margin: 8px auto;
+  box-shadow: $shadow-inset;
+  max-width: 400px;
+
+  &:first-of-type {
+    font-weight: 500;
+    font-size: 1.1rem;
+    background: rgba($color-accent, 0.1);
+  }
+}

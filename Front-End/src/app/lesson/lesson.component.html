@@ -1,0 +1,76 @@
+<!-- <p>{{ course() }} Lessons Progress</p> -->
+
+<div class="time-container">
+  <div class="time-item">
+    <span class="time-label">Total Time:</span>
+    <span class="time-value"
+      >{{ Math.floor(totalTime() / 60) }}h: {{ totalTime() % 60 }}m</span
+    >
+  </div>
+  <div class="time-item">
+    <span class="time-label">Completed:</span>
+    <span class="time-value"
+      >{{ Math.floor(totalCompletedTime() / 60) }}h:
+      {{ totalCompletedTime() % 60 }}m</span
+    >
+  </div>
+</div>
+
+<div class="progress-container">
+  <progress [value]="totalCompletedTime()" [max]="totalTime()"></progress>
+  <span class="progress-text">
+    {{
+      totalTime() > 0
+        ? Math.floor((totalCompletedTime() / totalTime()) * 100)
+        : 0
+    }}%
+  </span>
+</div>
+
+@if (isLoading()) {
+<p>Loading lessons...</p>
+} @else if (error()) {
+<p error>Error: {{ error() }}</p>
+} @else if (lessons().length === 0) {
+<p>No lessons available.</p>
+} @else {
+<!-- <div class="lessons-grid">
+  @for (lesson of lessons(); track lesson.id) {
+  <button
+    [class.completed]="lesson.completed"
+    (click)="onToggleCompleted(course(), lesson)"
+  >
+    <span class="completed"> @if (lesson.completed) { ✓ } </span>
+    {{ lesson.id }}. {{ lesson.lesson_title }} - {{ lesson.hours }}h:
+    {{ lesson.minutes }}m
+  </button>
+  }
+</div> -->
+
+<div class="lessons-grid">
+  @for (lesson of lessons(); track lesson.id) {
+  <div class="lesson-item" [class.completed]="lesson.completed">
+    <div class="checkbox" (click)="onToggleCompleted(course(), lesson)">
+      @if (lesson.completed) { ✓ }
+    </div>
+
+    <div class="lesson-details">
+      <a
+        *ngIf="lesson.url"
+        [href]="lesson.url"
+        class="lesson-link"
+        target="_blank"
+      >
+        {{ lesson.id }}. {{ lesson.lesson_title }} - {{ lesson.hours }}h:
+        {{ lesson.minutes }}m
+      </a>
+      <span *ngIf="!lesson.url" class="lesson-link no-link">
+        {{ lesson.id }}. {{ lesson.lesson_title }} - {{ lesson.hours }}h:
+        {{ lesson.minutes }}m
+      </span>
+    </div>
+  </div>
+  }
+</div>
+
+}
