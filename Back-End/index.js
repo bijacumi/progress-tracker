@@ -7,7 +7,14 @@ require("dotenv").config();
 
 const PORT = process.env.PORT || 8080;
 
-app.use(cors({ origin: "http://localhost:4200" }));
+app.use(
+  cors({
+    origin: [
+      "http://localhost:4200",
+      "https://progresstracker-production.up.railway.app/",
+    ],
+  })
+);
 app.use(express.json());
 
 app.get("/", (req, res) => {
