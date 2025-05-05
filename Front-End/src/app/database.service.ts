@@ -29,12 +29,6 @@ export class DatabaseService {
     return this.fetchData(course).pipe(
       tap((lessons) => {
         const lessonsSignal = this.lessonsMap[course];
-        /*course === 'angular'
-          ? this.angular
-          : course === 'frontend'
-          ? this.frontend
-          : this.backend;*/
-
         lessonsSignal.set(lessons);
       })
     );
@@ -48,11 +42,9 @@ export class DatabaseService {
     }).pipe(
       tap(() => {
         const lessonsSignal = this.lessonsMap[course];
-
         const updatedLessons = lessonsSignal().map((l) =>
           l.id === updated.id ? updated : l
         );
-
         lessonsSignal.set(updatedLessons);
         console.log(lessonsSignal());
       })

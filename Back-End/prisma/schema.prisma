@@ -1,0 +1,45 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model angular {
+  id           Int     @id @default(autoincrement())
+  lesson_title String  @db.VarChar(255)
+  hours        Int
+  minutes      Int
+  completed    Int?    @default(0) @db.TinyInt
+  url          String? @db.VarChar(1000)
+}
+
+model frontend {
+  id           Int     @id @default(autoincrement())
+  lesson_title String  @db.VarChar(255)
+  hours        Int
+  minutes      Int
+  completed    Int     @default(0) @db.TinyInt
+  url          String? @db.VarChar(1000)
+}
+
+model backend {
+  id           Int     @id @default(autoincrement())
+  lesson_title String  @db.VarChar(255)
+  hours        Int
+  minutes      Int
+  completed    Int?    @default(0) @db.TinyInt
+  url          String? @db.VarChar(1000)
+}
+
+model react {
+  id           Int     @id @default(autoincrement())
+  lesson_title String  @db.VarChar(255)
+  hours        Int
+  minutes      Int
+  completed    Int     @default(0) @db.TinyInt
+  url          String? @db.VarChar(1000)
+}

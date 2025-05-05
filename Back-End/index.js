@@ -28,7 +28,7 @@ app.get("/:lesson", async (req, res) => {
     const [results] = await db.promise().query(query);
     res.json(results);
   } catch (err) {
-    res.status(500).json({ error: "Failed to fetch lessons" });
+    res.status(500).json({ error: `Failed to fetch lessons from ${lesson}` });
   }
 });
 
