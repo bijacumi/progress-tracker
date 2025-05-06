@@ -11,7 +11,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:4200",
-      "https://progresstracker-production.up.railway.app/",
+      "https://progresstracker-production.up.railway.app",
     ],
   })
 );
